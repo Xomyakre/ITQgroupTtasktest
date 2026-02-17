@@ -1,23 +1,21 @@
-# ITQ Group test task — Documents service
+# Тестовое задание ITQ Group
 
-## Требования
-- Java 17
-- Docker (для PostgreSQL)
+
 
 ## Запуск PostgreSQL
 
-```bash
+```
 docker compose up -d
 ```
 
 Параметры БД уже прописаны в `src/main/resources/application.properties`:
-- db: `itqdb`
-- user: `itquser`
-- pass: `itqpass`
+- db: `ITQgroup`
+- user: `postgres`
+- pass: `password`
 
 ## Запуск сервиса
 
-```bash
+```
 ./gradlew bootRun
 ```
 
@@ -70,7 +68,7 @@ docker compose up -d
 
 Запуск:
 
-```bash
+```
 ./gradlew :generator:run --args="generator-config.json"
 ```
 
@@ -78,7 +76,7 @@ docker compose up -d
 
 ## Тесты
 
-```bash
+```
 ./gradlew test
 ```
 

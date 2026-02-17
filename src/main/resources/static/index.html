@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ITQ Documents Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+<main>
+    <section class="card" id="create-section">
+        <h2>1. Создать документ</h2>
+        <form id="create-form">
+            <div class="field">
+                <label for="create-initiator">Инициатор</label>
+                <input id="create-initiator" name="initiator" value="user1" required>
+            </div>
+            <div class="field">
+                <label for="create-author">Автор</label>
+                <input id="create-author" name="author" value="Alex" required>
+            </div>
+            <div class="field">
+                <label for="create-title">Название</label>
+                <input id="create-title" name="title" value="Тестовый документ" required>
+            </div>
+            <button type="submit">Создать</button>
+        </form>
+        <pre class="result" id="create-result"></pre>
+    </section>
+
+    <section class="card" id="get-section">
+        <h2>2. Получить документ</h2>
+        <form id="get-form">
+            <div class="field">
+                <label for="get-id">ID документа</label>
+                <input id="get-id" name="id" type="number" min="1" required>
+            </div>
+            <div class="field checkbox">
+                <label>
+                    <input type="checkbox" id="get-with-history" checked>
+                    С историей
+                </label>
+            </div>
+            <button type="submit">Получить</button>
+        </form>
+        <pre class="result" id="get-result"></pre>
+    </section>
+
+    <section class="card" id="list-section">
+        <h2>3. Список / поиск</h2>
+        <form id="search-form">
+            <div class="grid-3">
+                <div class="field">
+                    <label for="search-status">Статус</label>
+                    <select id="search-status">
+                        <option value="">(любой)</option>
+                        <option value="DRAFT">DRAFT</option>
+                        <option value="SUBMITTED">SUBMITTED</option>
+                        <option value="APPROVED">APPROVED</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="search-author">Автор</label>
+                    <input id="search-author" placeholder="пример: Alex">
+                </div>
+                <div class="field">
+                    <label for="search-page">Страница / размер</label>
+                    <div class="inline">
+                        <input id="search-page" type="number" min="0" value="0">
+                        <input id="search-size" type="number" min="1" value="10">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="field">
+                    <label for="search-from">Дата с (UTC)</label>
+                    <input id="search-from" type="datetime-local">
+                </div>
+                <div class="field">
+                    <label for="search-to">Дата по (UTC)</label>
+                    <input id="search-to" type="datetime-local">
+                </div>
+            </div>
+            <div class="field">
+                <label for="search-sort">Сортировка</label>
+                <input id="search-sort" value="id,desc">
+            </div>
+            <button type="submit">Поиск (GET /search)</button>
+            <button type="button" id="list-all-btn">Просто список (GET /api/documents)</button>
+        </form>
+        <pre class="result" id="search-result"></pre>
+    </section>
+
+    <section class="card" id="batch-section">
+        <h2>4. Пакетный submit / approve</h2>
+        <form id="batch-form">
+            <div class="field">
+                <label for="batch-ids">ID через запятую</label>
+                <input id="batch-ids" placeholder="например: 1,2,3">
+            </div>
+            <div class="field">
+                <label for="batch-initiator">Инициатор</label>
+                <input id="batch-initiator" value="batch-user">
+            </div>
+            <div class="field">
+                <label for="batch-comment">Комментарий (опционально)</label>
+                <input id="batch-comment" placeholder="Комментарий к действию">
+            </div>
+            <div class="buttons-row">
+                <button type="button" id="batch-submit-btn">Submit (DRAFT → SUBMITTED)</button>
+                <button type="button" id="batch-approve-btn">Approve (SUBMITTED → APPROVED)</button>
+            </div>
+        </form>
+        <pre class="result" id="batch-result"></pre>
+    </section>
+
+    <section class="card" id="concurrent-section">
+        <h2>5. Тест конкурентного утверждения</h2>
+        <form id="concurrent-form">
+            <div class="grid-3">
+                <div class="field">
+                    <label for="concurrent-doc-id">ID документа</label>
+                    <input id="concurrent-doc-id" type="number" min="1" required>
+                </div>
+                <div class="field">
+                    <label for="concurrent-threads">threads</label>
+                    <input id="concurrent-threads" type="number" min="1" max="128" value="8">
+                </div>
+                <div class="field">
+                    <label for="concurrent-attempts">attempts</label>
+                    <input id="concurrent-attempts" type="number" min="1" max="10000" value="50">
+                </div>
+            </div>
+            <div class="field">
+                <label for="concurrent-initiator">Инициатор</label>
+                <input id="concurrent-initiator" value="concurrent-tester">
+            </div>
+            <button type="submit">Запустить конкурентный тест</button>
+        </form>
+        <pre class="result" id="concurrent-result"></pre>
+    </section>
+
+    <section class="card" id="log-section">
+        <h2>Логи запросов</h2>
+        <pre class="result" id="log-output"></pre>
+        <button id="log-clear-btn" type="button">Очистить логи</button>
+    </section>
+</main>
+
+
+
+<script src="main.js"></script>
+</body>
+</html>
+
