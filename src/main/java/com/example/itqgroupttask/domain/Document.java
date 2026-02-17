@@ -45,5 +45,25 @@ public class Document {
     @Column(name = "version", nullable = false)
     private Long version;
 
+    @PrePersist
+    public void prePersist() {
+        var now = OffsetDateTime.now();
+        if (createdAt == null) {
+            createdAt = now;
+        }
+        updatedAt = now;
+        if (status == null) {
+            status = DocumentStatus.DRAFT;
+        }
+        if (version == null) {
+            version = 0L;
+        }
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = OffsetDateTime.now();
+    }
+
 }
 

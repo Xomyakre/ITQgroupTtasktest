@@ -134,6 +134,10 @@ databaseChangeLog:
       id: 004-indexes
       author: ai
       changes:
+        - addUniqueConstraint:
+            tableName: approval_registry
+            columnNames: document_id
+            constraintName: uq_approval_registry_document_id
         - createIndex:
             tableName: documents
             indexName: idx_documents_status
