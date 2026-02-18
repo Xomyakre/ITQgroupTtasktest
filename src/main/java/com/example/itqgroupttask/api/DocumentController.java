@@ -45,8 +45,6 @@ public class DocumentController {
                                      @RequestParam(defaultValue = "false") boolean includeHistory) {
         if (ids != null && !ids.isEmpty()) {
             var docs = documentService.listByIds(ids);
-            // для пакетного получения пагинацию делаем на уровне входного списка ids:
-            // это упрощение; для прод-сценария лучше отдельный endpoint с курсорами.
             int from = Math.min((int) pageable.getOffset(), docs.size());
             int to = Math.min(from + pageable.getPageSize(), docs.size());
             var pageSlice = docs.subList(from, to);

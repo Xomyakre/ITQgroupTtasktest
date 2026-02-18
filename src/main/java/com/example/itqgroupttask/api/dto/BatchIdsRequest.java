@@ -17,9 +17,6 @@ public class BatchIdsRequest {
     @Size(min = 1, max = 1000)
     private List<Long> ids;
 
-    /**
-     * Optional comment for history record.
-     */
     private String comment;
 }
 

@@ -36,8 +36,6 @@ public class DocumentService {
 
     @Transactional
     public Document create(String initiator, String author, String title) {
-        // initiator присутствует по ТЗ во всех запросах; сохраняем в историю только на сменах статуса,
-        // но он может пригодиться для логов/аудита.
         var doc = Document.builder()
                 .number(DocumentNumberGenerator.nextNumber())
                 .author(author)
@@ -47,7 +45,6 @@ public class DocumentService {
         try {
             return documentRepository.save(doc);
         } catch (DataIntegrityViolationException ex) {
-            // крайне редко, но возможно совпадение number; повторяем 1 раз
             doc.setNumber(DocumentNumberGenerator.nextNumber());
             return documentRepository.save(doc);
         }
@@ -145,7 +142,6 @@ public class DocumentService {
                     .approvedAt(OffsetDateTime.now())
                     .build());
         } catch (DataIntegrityViolationException ex) {
-            // откат транзакции
             throw new RegistryException("Failed to register approval for document: " + id);
         }
     }
